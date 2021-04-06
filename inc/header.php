@@ -23,6 +23,7 @@ if (isset($_SESSION["username"])) {
 
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="assets/css/bootstrap.min.css"  />
+    <link rel="stylesheet" type="text/css" href="assets/fonts/linotte/stylesheet.css">
     <link rel="stylesheet" href="assets/css/main.css"  />
 
     <title>Complaint List</title>

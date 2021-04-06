@@ -112,6 +112,33 @@ class DataSource
     }
 
     /**
+     * To get database results
+     *
+     * @param string $query
+     * @param string $paramType
+     * @param array $paramArray
+     * @return array
+     */
+    public function getAll($query)
+    {
+       
+        $stmt = $this->conn->prepare($query);
+        
+        $stmt->execute();
+        $result = $stmt->get_result();
+
+        if ($result->num_rows > 0) {
+            while ($row = $result->fetch_assoc()) {
+                $resultset[] = $row;
+            }
+        }
+
+        if (! empty($resultset)) {
+            return $resultset;
+        }
+    }
+
+    /**
      * To insert
      *
      * @param string $query

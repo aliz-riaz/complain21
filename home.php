@@ -1,11 +1,11 @@
 <?php
 use Phppot\Complaint;
 
-if (! empty($_POST["login-btn"])) {
+
     require_once __DIR__ . '/Model/Complaint.php';
     $complaint = new Complaint();
-    $complaintResult = $complaint->registerComplaint();
-}
+    $complaintRecords = $complaint->getAllComplaints();
+
 ?>
 
     <?php
@@ -15,30 +15,37 @@ if (! empty($_POST["login-btn"])) {
     <div class="container">
         <div class="row">
             <div class="col-sm-12">
-                <h2>Create Complaint</h2>
-                <form action="/" class="w-100 d-block">
-                  <div class="form-group">
-                    <label for="name">Name:</label>
-                    <input type="text" class="form-control" placeholder="Enter Name" id="name">
-                  </div>
-                  <div class="form-group">
-                    <label for="email">Email:</label>
-                    <input type="email" class="form-control" placeholder="Enter Email" id="email">
-                  </div>
-                  <div class="form-group">
-                    <label for="phone">Phone:</label>
-                    <input type="text" class="form-control" placeholder="Enter Name" id="name">
-                  </div>
-                  <div class="form-group">
-                    <label for="address">Address:</label>
-                    <input type="text" class="form-control" placeholder="Enter Adddress" id="address">
-                  </div>
-                  <div class="form-group">
-                    <label for="complaint">Complaint:</label>
-                    <input type="text" class="form-control" placeholder="Enter Complaint" id="complaint">
-                  </div>
-                  <button type="submit" class="btn btn-primary" name="complaint" value="complaint">Submit</button>
-                </form>
+              
+                <h2 class="pt-5">All Register Complaints</h2>
+               <table class="table mt-4">
+                  <thead>
+                    <tr>
+                      <th>#</th>
+                      <th>Name</th>
+                      <th>Email</th>
+                      <th>Status</th>
+                      <th>Action</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <?php
+                    foreach ($complaintRecords as $row ) { ?>
+                      <tr>
+                      <th scope="row"><?php echo $row['id'] ?></th>
+                      <td><?php echo $row['name'] ?></td>
+                      <td><?php echo $row['email'] ?></td>
+                      <td><?php echo $row['status'] ?></td>
+                      <td>
+                        <a href="edit.php?id=<?php echo $row['id'] ?>">Edit</a>
+                        <a href="?delete=<?php echo $row['id'] ?>">Delete</a>
+                      </td>
+                    </tr> 
+                    <?php }
+                    ?>
+                   
+                    
+                  </tbody>
+                </table>
             </div>
         </div>
     </div>

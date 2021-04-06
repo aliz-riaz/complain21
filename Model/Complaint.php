@@ -23,19 +23,22 @@ class Complaint
      */
     public function registerComplaint()
     {
-        $name = $_POST["name"];
-        $email =$_POST["email"];
-        $phone =$_POST["phone"];
-        $address =$_POST["address"];
-        $complain =$_POST["complain"];
-        $query = 'INSERT INTO tbl_complain (username, password, email) VALUES (?, ?, ?, ?, ?)';
-            $paramType = 'sssss';
+         $name = $_POST["name"];
+         $email =$_POST["email"];
+         $phone =$_POST["phone"];
+         $address =$_POST["address"];
+         $complain =$_POST["complaint"];
+       
+        $query = 'INSERT INTO tbl_complaint (`name`, `email`, `phone`, `address`, `complaint`, `status`) VALUES (?, ?, ?, ?, ?, ?)';
+            $paramType = 'ssssss';
             $paramValue = array(
                 $name,
                 $email,
                 $phone,
                 $address,
-                $complain
+                $complain,
+                'Pending'
+                
             );
             $complainId = $this->ds->insert($query, $paramType, $paramValue);
             if (! empty($complainId)) {
@@ -44,8 +47,21 @@ class Complaint
                     "message" => "Your complaint has been registered successfully."
                 );
             }
+            else {
+                $response = array(
+                    "status" => "error",
+                    "message" => "Error while submitting."
+                );
+            }
         
         return $response;
+    }
+
+     public function getAllComplaints()
+    {
+        $query = 'SELECT * FROM tbl_complaint';
+        $memberRecord = $this->ds->getAll($query);
+        return $memberRecord;
     }
 
     public function getMember($username)
