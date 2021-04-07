@@ -215,4 +215,11 @@ class DataSource
 
         return $recordCount;
     }
+
+
+    function update($query) {
+        $stmt = $this->conn->prepare($query);
+        //$this->bindQueryParams($stmt, $param_type, $paramArray);
+        $stmt->execute();
+    }
 }

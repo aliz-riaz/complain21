@@ -36,7 +36,7 @@ use Phppot\Complaint;
                       <td><?php echo $row['email'] ?></td>
                       <td><?php echo $row['status'] ?></td>
                       <td>
-                        <a href="edit.php?id=<?php echo $row['id'] ?>">Edit</a>
+                        <a href="view.php?id=<?php echo $row['id'] ?>">View</a> |
                         <a href="?delete=<?php echo $row['id'] ?>">Delete</a>
                       </td>
                     </tr> 

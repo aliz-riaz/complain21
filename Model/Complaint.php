@@ -64,16 +64,39 @@ class Complaint
         return $memberRecord;
     }
 
-    public function getMember($username)
+    
+    public function getComplaint($id)
     {
-        $query = 'SELECT * FROM tbl_member where username = ?';
+        $query = 'SELECT * FROM tbl_complaint where id = ?';
         $paramType = 's';
         $paramValue = array(
-            $username
+            $id
         );
-        $memberRecord = $this->ds->select($query, $paramType, $paramValue);
-        return $memberRecord;
+        $complaintRecord = $this->ds->select($query, $paramType, $paramValue);
+        return $complaintRecord;
     }
+
+    public function updateComplaint($id, $status)
+    {
+        //$query = 'SELECT * FROM tbl_complaint where id = ?';
+        $query = "UPDATE tbl_complaint SET status= '$status' WHERE id= '$id' ";
+        $stmt = $this->ds->update($query);
+         if (empty($stmt)) {
+            $response = array(
+                    "status" => "success",
+                    "message" => "Status has been updated!"
+                );
+        }
+        else {
+            $response = array(
+                    "status" => "error",
+                    "message" => "Error while updating"
+                );
+        }
+        /*$updateRecord = $this->ds->update($query);*/
+        return $response;
+    }
+
 
     /**
      * to login a user
